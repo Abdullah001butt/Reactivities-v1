@@ -1,0 +1,2 @@
+### Create a new activity
+GET https://localhost:5001/api/activities
