@@ -1,16 +1,18 @@
 import { Button, Card, CardActions, CardContent, Chip, Typography, Box, useTheme, useMediaQuery } from "@mui/material";
 import { CalendarToday, LocationOn } from "@mui/icons-material";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
   activity: Activity;
   selectActivity: (id: string) => void;
-  deleteActivity: (id: string) => void;
 }
 
-const ActivityCard = ({ activity, selectActivity, deleteActivity }: Props) => {
+const ActivityCard = ({ activity, selectActivity }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+
+  const { deleteActivity } = useActivities()
 
   return (
     <Card
@@ -173,7 +175,8 @@ const ActivityCard = ({ activity, selectActivity, deleteActivity }: Props) => {
             size={isMobile ? "medium" : "small"}
             variant="contained"
             fullWidth={isMobile}
-            onClick={() => deleteActivity(activity.id)}
+            disabled={deleteActivity.isPending}
+            onClick={() => deleteActivity.mutate(activity.id)}
             sx={{
               backgroundColor: 'red',
               color: 'white',
@@ -182,6 +185,7 @@ const ActivityCard = ({ activity, selectActivity, deleteActivity }: Props) => {
               borderRadius: '6px',
               px: { xs: 2, sm: 3 },
               py: { xs: 1, sm: 1 },
+
               fontSize: { xs: '0.75rem', sm: '0.875rem' },
               boxShadow: 'none',
               minWidth: { xs: 'auto', sm: 'auto' },
