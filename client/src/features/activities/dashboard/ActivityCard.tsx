@@ -1,13 +1,14 @@
 import { Button, Card, CardActions, CardContent, Chip, Typography, Box, useTheme, useMediaQuery } from "@mui/material";
 import { CalendarToday, LocationOn } from "@mui/icons-material";
 import { useActivities } from "../../../lib/hooks/useActivities";
+import { useNavigate } from "react-router";
 
 type Props = {
   activity: Activity;
-  selectActivity: (id: string) => void;
 }
 
-const ActivityCard = ({ activity, selectActivity }: Props) => {
+const ActivityCard = ({ activity }: Props) => {
+  const navigate = useNavigate()
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -151,7 +152,7 @@ const ActivityCard = ({ activity, selectActivity }: Props) => {
             size={isMobile ? "medium" : "small"}
             variant="contained"
             fullWidth={isMobile}
-            onClick={() => selectActivity(activity.id)}
+            onClick={() => navigate(`/activities/${activity.id}`)}
             sx={{
               backgroundColor: '#09090b',
               color: 'white',

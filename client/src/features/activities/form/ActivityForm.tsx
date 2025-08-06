@@ -1,14 +1,12 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material"
 import type { FormEvent } from "react"
 import { useActivities } from "../../../lib/hooks/useActivities"
+import { useNavigate, useParams } from "react-router"
 
-type Props = {
-    activity?: Activity
-    closeForm: () => void
-}
-
-const ActivityForm = ({ activity, closeForm }: Props) => {
-    const { updateActivity, createActivity } = useActivities()
+const ActivityForm = () => {
+    const { id } = useParams()
+    const { updateActivity, createActivity, activity, isLoadingActivity } = useActivities(id)
+    const navigate = useNavigate()
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
@@ -19,12 +17,16 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
         if (activity) {
             data.id = activity.id
             await updateActivity.mutateAsync(data as unknown as Activity)
-            closeForm()
+            navigate(`/activities/${activity.id}`)
         } else {
-            await createActivity.mutateAsync(data as unknown as Activity)
-            closeForm()
+            createActivity.mutate(data as unknown as Activity, {
+                onSuccess: (id) => {
+                    navigate(`/activities/${id}}`)
+                }
+            })
         }
     }
+    if (isLoadingActivity) return <Typography>Activity Loading...</Typography>
     return (
         <Paper sx={{
             borderRadius: { xs: '8px', sm: '12px' },
@@ -50,7 +52,7 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
                     lineHeight: 1.2
                 }}
             >
-                Create Activity
+               {activity ? "Edit Activity" : "Create Activity"}
             </Typography>
             <Box
                 component='form'
@@ -288,7 +290,6 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
                                 backgroundColor: '#f4f4f5',
                             }
                         }}
-                        onClick={closeForm}
                     >
                         Cancel
                     </Button>
