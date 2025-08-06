@@ -1,7 +1,9 @@
-import { AppBar, Box, Toolbar, Typography, Button, Container, IconButton, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, Chip } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, Button, Container, IconButton, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, Chip, LinearProgress } from '@mui/material';
 import { Group, Menu as MenuIcon, Close, Dashboard, Add } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
+import { useStore } from '../../lib/hooks/useStore';
+import { Observer } from 'mobx-react-lite';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -9,9 +11,12 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const { UiStore } = useStore()
+
   const navigationItems = [
     { label: 'Activities', path: '/activities', icon: <Dashboard sx={{ fontSize: 18 }} /> },
     { label: 'Create Activity', path: '/createActivity', icon: <Add sx={{ fontSize: 18 }} /> },
+    { label: 'Counter', path: '/counter', icon: <Add sx={{ fontSize: 18 }} /> },
   ];
 
   const gradientBg = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)';
@@ -22,11 +27,12 @@ const Navbar = () => {
       <AppBar position="static" elevation={0} sx={{
         background: darkBg,
         backdropFilter: 'blur(20px)',
+        position: 'relative',
         borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
       }}>
         <Container maxWidth="xl">
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', minHeight: { xs: '64px', sm: '72px' } }}>
-            
+
             {/* Logo */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Box sx={{
@@ -36,13 +42,13 @@ const Navbar = () => {
                 <Group sx={{ fontSize: 28, color: 'white' }} />
               </Box>
               <Link to="/">
-              <Typography variant="h5" sx={{
-                background: 'linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%)',
-                backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                fontWeight: '800', letterSpacing: '-0.04em', fontSize: { xs: '1.4rem', md: '1.75rem' }
-              }}>
-                Reactivities
-              </Typography>
+                <Typography variant="h5" sx={{
+                  background: 'linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%)',
+                  backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                  fontWeight: '800', letterSpacing: '-0.04em', fontSize: { xs: '1.4rem', md: '1.75rem' }
+                }}>
+                  Reactivities
+                </Typography>
               </Link>
             </Box>
 
@@ -73,10 +79,10 @@ const Navbar = () => {
             {/* Menu Text & Mobile Toggle */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               {/* Desktop Menu Text */}
-              <Typography sx={{ 
-                display: { xs: 'none', md: 'block' }, 
-                color: 'rgba(255, 255, 255, 0.8)', 
-                fontSize: '0.9rem' 
+              <Typography sx={{
+                display: { xs: 'none', md: 'block' },
+                color: 'rgba(255, 255, 255, 0.8)',
+                fontSize: '0.9rem'
               }}>
                 User Menu
               </Typography>
@@ -92,13 +98,27 @@ const Navbar = () => {
             </Box>
           </Toolbar>
         </Container>
+        <Observer>
+          {() => UiStore.isLoading ? (
+            <LinearProgress
+              color='secondary'
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 4,
+              }}
+            />
+          ) : null}
+        </Observer>
       </AppBar>
 
       {/* Mobile Drawer */}
       <Drawer variant="temporary" anchor="right" open={mobileOpen} onClose={() => setMobileOpen(false)}
         sx={{ display: { xs: 'block', md: 'none' }, '& .MuiDrawer-paper': { width: 280, border: 'none' } }}>
         <Box sx={{ width: 280, height: '100%', background: darkBg }}>
-          
+
           {/* Mobile Header */}
           <Box sx={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 3,
