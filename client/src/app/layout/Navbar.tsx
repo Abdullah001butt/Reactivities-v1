@@ -1,7 +1,7 @@
 import { AppBar, Box, Toolbar, Typography, Button, Container, IconButton, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, Chip } from '@mui/material';
 import { Group, Menu as MenuIcon, Close, Dashboard, Add } from '@mui/icons-material';
 import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -13,8 +13,6 @@ const Navbar = () => {
     { label: 'Activities', path: '/activities', icon: <Dashboard sx={{ fontSize: 18 }} /> },
     { label: 'Create Activity', path: '/createActivity', icon: <Add sx={{ fontSize: 18 }} /> },
   ];
-
-
 
   const gradientBg = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)';
   const darkBg = 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)';
@@ -37,6 +35,7 @@ const Navbar = () => {
               }}>
                 <Group sx={{ fontSize: 28, color: 'white' }} />
               </Box>
+              <Link to="/">
               <Typography variant="h5" sx={{
                 background: 'linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%)',
                 backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
@@ -44,6 +43,7 @@ const Navbar = () => {
               }}>
                 Reactivities
               </Typography>
+              </Link>
             </Box>
 
             {/* Desktop Navigation */}
