@@ -1,5 +1,5 @@
 import { AppBar, Box, Toolbar, Typography, Button, Container, IconButton, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, Chip, LinearProgress } from '@mui/material';
-import { Group, Menu as MenuIcon, Close, Dashboard, Add } from '@mui/icons-material';
+import { Group, Menu as MenuIcon, Close, Dashboard, Add, Error, Create } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { useStore } from '../../lib/hooks/useStore';
@@ -15,8 +15,9 @@ const Navbar = () => {
 
   const navigationItems = [
     { label: 'Activities', path: '/activities', icon: <Dashboard sx={{ fontSize: 18 }} /> },
-    { label: 'Create Activity', path: '/createActivity', icon: <Add sx={{ fontSize: 18 }} /> },
+    { label: 'Create Activity', path: '/createActivity', icon: <Create sx={{ fontSize: 18 }} /> },
     { label: 'Counter', path: '/counter', icon: <Add sx={{ fontSize: 18 }} /> },
+    { label: 'Errors', path: '/errors', icon: <Error sx={{ fontSize: 18 }} /> },
   ];
 
   const gradientBg = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)';

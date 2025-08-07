@@ -5,6 +5,8 @@ import ActivityDashboard from "../../features/activities/dashboard/ActivityDashb
 import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetailPage from "../../features/activities/details/ActivityDetailPage";
 import Counter from "../counter/Counter";
+import TestErrors from "../errors/TestErrors";
+import ServerError from "../errors/ServerError";
 
 // Error component for 404 handling
 const ErrorPage = () => {
@@ -29,6 +31,8 @@ export const router = createBrowserRouter([
             { path: "createActivity", element: <ActivityForm key='create'/> },
             { path: "manage/:id", element: <ActivityForm /> },
             { path: "counter", element: <Counter /> },
+            { path: "errors", element: <TestErrors /> },
+            { path: "server-error", element: <ServerError /> },
             { path: "*", element: <ErrorPage /> }
         ]
     }
