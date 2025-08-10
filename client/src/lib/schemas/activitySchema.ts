@@ -1,14 +1,17 @@
   import { z } from "zod";
+import { requiredString } from "../util/util";
 
   export const activitySchema = z.object({
-    title: z.string().min(3),
-    description: z.string().min(10),
-    category: z.string(),
-    date: z.instanceof(Date),
+    title: requiredString('Title'),
+    description: requiredString('Description'),
+    category: requiredString('Category'),
+    date: z.coerce.date({
+      message: 'Date is required'
+    }),
     location: z.object({
-      venue: z.string(),
-      latitude: z.number(),
-      longitude: z.number(),
+      venue: requiredString('Venue'),
+      latitude: z.coerce.number(),
+      longitude: z.coerce.number(),
       city: z.string().optional(),
     }),
   });

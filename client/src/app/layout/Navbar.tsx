@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { useStore } from '../../lib/hooks/useStore';
 import { Observer } from 'mobx-react-lite';
+import { useAccount } from '../../lib/hooks/useAccount';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -12,10 +14,10 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { UiStore } = useStore()
+  const { currentUser } = useAccount()
 
   const navigationItems = [
     { label: 'Activities', path: '/activities', icon: <Dashboard sx={{ fontSize: 18 }} /> },
-    { label: 'Create Activity', path: '/createActivity', icon: <Create sx={{ fontSize: 18 }} /> },
     { label: 'Counter', path: '/counter', icon: <Add sx={{ fontSize: 18 }} /> },
     { label: 'Errors', path: '/errors', icon: <Error sx={{ fontSize: 18 }} /> },
   ];
@@ -85,7 +87,16 @@ const Navbar = () => {
                 color: 'rgba(255, 255, 255, 0.8)',
                 fontSize: '0.9rem'
               }}>
-                User Menu
+                <Box display='flex' alignItems='center'>
+                  {currentUser ? (
+                    <UserMenu />
+                  ) : (
+                    <>
+                    <Link to='/login'>Login</Link>
+                    <Link to='/register'>Register</Link>
+                    </>
+                  )}
+                </Box>
               </Typography>
 
               {/* Mobile Menu Button */}

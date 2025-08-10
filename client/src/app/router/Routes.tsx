@@ -7,6 +7,9 @@ import ActivityDetailPage from "../../features/activities/details/ActivityDetail
 import Counter from "../counter/Counter";
 import TestErrors from "../errors/TestErrors";
 import ServerError from "../errors/ServerError";
+import LoginForm from "../../features/account/LoginForm";
+import RequireAuth from "./RequireAuth";
+import RegisterForm from "../../features/account/RegisterForm";
 
 // Error component for 404 handling
 const ErrorPage = () => {
@@ -20,20 +23,26 @@ const ErrorPage = () => {
 };
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-        errorElement: <ErrorPage />,
-        children: [
-            { path: "", element: <HomePage /> },
-            { path: "activities", element: <ActivityDashboard /> },
-            { path: "activities/:id", element: <ActivityDetailPage /> },
-            { path: "createActivity", element: <ActivityForm key='create'/> },
-            { path: "manage/:id", element: <ActivityForm /> },
-            { path: "counter", element: <Counter /> },
-            { path: "errors", element: <TestErrors /> },
-            { path: "server-error", element: <ServerError /> },
-            { path: "*", element: <ErrorPage /> }
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        element: <RequireAuth />, children: [
+          { path: "activities", element: <ActivityDashboard /> },
+          { path: "activities/:id", element: <ActivityDetailPage /> },
+          { path: "createActivity", element: <ActivityForm key='create' /> },
+          { path: "manage/:id", element: <ActivityForm /> },
         ]
-    }
+      },
+      { path: "", element: <HomePage /> },
+      { path: "counter", element: <Counter /> },
+      { path: "errors", element: <TestErrors /> },
+      { path: "server-error", element: <ServerError /> },
+      { path: "login", element: <LoginForm /> },
+      { path: "register", element: <RegisterForm /> },
+      { path: "*", element: <ErrorPage /> }
+    ]
+  }
 ])
