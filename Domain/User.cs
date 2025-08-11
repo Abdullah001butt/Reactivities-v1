@@ -11,4 +11,5 @@ public class User : IdentityUser
 
     // Navigation Props
     public ICollection<ActivityAttendee> Activities { get; set; } = [];
+    public ICollection<Photo> Photos { get; set; } = [];
 }

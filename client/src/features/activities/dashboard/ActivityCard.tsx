@@ -2,6 +2,7 @@ import { Button, Card, CardContent, Chip, Typography, Box, useTheme, useMediaQue
 import { AccessTime, Place } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router";
 import { formatDate } from "../../../lib/util/util";
+import AvatarPopover from "../../../app/shared/components/AvatarPopover";
 
 type Props = {
   activity: Activity;
@@ -9,11 +10,9 @@ type Props = {
 
 const ActivityCard = ({ activity }: Props) => {
 
-  const isHost = false
-  const isGoing = false
-  const label = isHost ? 'You are hosting' : 'You are going'
+  const label = activity.isHost ? 'You are hosting' : 'You are going'
   const isCancelled = false
-  const color = isHost ? 'secondary' : isGoing ? 'warning' : 'default'
+  const color = activity.isHost ? 'secondary' : activity.isGoing ? 'warning' : 'default'
 
   const navigate = useNavigate()
   const theme = useTheme();
@@ -48,13 +47,16 @@ const ActivityCard = ({ activity }: Props) => {
           }}
           subheader={
             <>
-              Hosted by{' '} <Link to={`/profiles/bob`}>Bob</Link>
+              Hosted by{' '}
+              <Link to={`/profiles/${activity.hostId}`}>
+                {activity.hostDisplayName}
+              </Link>
             </>
           }
         />
         <Box display='flex' flexDirection='column' gap={2} mr={2}>
-          {(isHost || isGoing) && <Chip label={label} color={color} sx={{ borderRadius: 2 }} />}
-          {isCancelled && <Chip label='Cancelled' color="error" sx={{ borderRadius: 2 }} />}
+          {(activity.isHost || activity.isGoing) && <Chip variant="outlined" label={label} color={color} sx={{ borderRadius: 2 }} />}
+          {activity.isCancelled && <Chip variant="outlined" label='Cancelled' color="error" sx={{ borderRadius: 2 }} />}
         </Box>
       </Box>
       <Divider sx={{ mb: 3 }} />
@@ -73,7 +75,9 @@ const ActivityCard = ({ activity }: Props) => {
         </Box>
         <Divider />
         <Box display='flex' gap={2} sx={{ backgroundColor: 'grey.200', py: 3, pl: 3 }}>
-          Attendees go here
+          {activity.attendees.map(att => (
+            <AvatarPopover profile={att} key={att.id} />
+          ))}
         </Box>
       </CardContent>
 
