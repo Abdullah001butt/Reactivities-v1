@@ -11,7 +11,7 @@ type Props = {
 const ActivityCard = ({ activity }: Props) => {
 
   const label = activity.isHost ? 'You are hosting' : 'You are going'
-  const isCancelled = false
+  // const isCancelled = false
   const color = activity.isHost ? 'secondary' : activity.isGoing ? 'warning' : 'default'
 
   const navigate = useNavigate()
@@ -39,8 +39,9 @@ const ActivityCard = ({ activity }: Props) => {
     >
       <Box display='flex' alignItems='center' justifyContent='space-between'>
         <CardHeader
-          avatar={<Avatar sx={{ height: 80, width: 80 }} />}
+          avatar={<Avatar src={activity.hostImageUrl} sx={{ height: 80, width: 80 }} />}
           title={activity.title}
+          alt="image of host"
           titleTypographyProps={{
             fontWeight: 'bold',
             fontSize: 20

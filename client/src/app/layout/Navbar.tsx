@@ -81,23 +81,22 @@ const Navbar = () => {
 
             {/* Menu Text & Mobile Toggle */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              {/* Desktop Menu Text */}
-              <Typography sx={{
-                display: { xs: 'none', md: 'block' },
+              {/* Desktop Menu Text - FIXED: Changed Typography to Box */}
+              <Box sx={{
+                display: { xs: 'none', md: 'flex' },
+                alignItems: 'center',
                 color: 'rgba(255, 255, 255, 0.8)',
                 fontSize: '0.9rem'
               }}>
-                <Box display='flex' alignItems='center'>
-                  {currentUser ? (
-                    <UserMenu />
-                  ) : (
-                    <>
+                {currentUser ? (
+                  <UserMenu />
+                ) : (
+                  <>
                     <Link to='/login'>Login</Link>
                     <Link to='/register'>Register</Link>
-                    </>
-                  )}
-                </Box>
-              </Typography>
+                  </>
+                )}
+              </Box>
 
               {/* Mobile Menu Button */}
               <IconButton onClick={() => setMobileOpen(!mobileOpen)} sx={{
