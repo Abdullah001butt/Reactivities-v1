@@ -1,5 +1,5 @@
-import { AppBar, Box, Toolbar, Typography, Button, Container, IconButton, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, Chip, LinearProgress } from '@mui/material';
-import { Group, Menu as MenuIcon, Close, Dashboard, Add, Error, Create } from '@mui/icons-material';
+import { AppBar, Box, Toolbar, Typography, Button, Container, IconButton, Drawer, List, ListItem, ListItemText, Chip, LinearProgress } from '@mui/material';
+import { Group, Menu as MenuIcon, Close, Dashboard, Add, Error } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { useStore } from '../../lib/hooks/useStore';
@@ -8,9 +8,9 @@ import { useAccount } from '../../lib/hooks/useAccount';
 import UserMenu from './UserMenu';
 
 const Navbar = () => {
-  const theme = useTheme();
+  
   const location = useLocation();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { UiStore } = useStore()

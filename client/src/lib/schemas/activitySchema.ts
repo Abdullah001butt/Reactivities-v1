@@ -5,13 +5,13 @@ import { requiredString } from "../util/util";
     title: requiredString('Title'),
     description: requiredString('Description'),
     category: requiredString('Category'),
-    date: z.coerce.date({
+    date: z.date({
       message: 'Date is required'
     }),
     location: z.object({
       venue: requiredString('Venue'),
-      latitude: z.coerce.number(),
-      longitude: z.coerce.number(),
+      latitude: z.number(),
+      longitude: z.number(),
       city: z.string().optional(),
     }),
   });

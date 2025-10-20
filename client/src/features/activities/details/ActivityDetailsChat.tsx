@@ -1,11 +1,10 @@
-import { Box, Typography, Card, CardContent, TextField, Avatar, CircularProgress, Paper, Divider, IconButton } from "@mui/material";
+import { Box, Typography, TextField, Avatar, CircularProgress, Paper, Divider } from "@mui/material";
 import { Link, useParams } from "react-router";
 import { useComments } from "../../../lib/hooks/useComment";
 import { timeAgo } from "../../../lib/util/util";
 import { useForm, type FieldValues } from "react-hook-form";
 import type React from "react";
 import { observer } from "mobx-react-lite";
-import { Send } from "@mui/icons-material";
 
 const ActivityDetailsChat = observer(function ActivityDetailsChat() {
     const { id } = useParams()

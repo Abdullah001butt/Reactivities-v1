@@ -486,3 +486,7 @@ API/appsettings.json
 API/reactivities.db
 API/reactivities.db-shm
 API/reactivities.db-wal
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md

@@ -1,5 +1,6 @@
+
 import { Group, ArrowForward, PlayArrow, TrendingUp, People, Schedule } from "@mui/icons-material";
-import { Box, Button, Paper, Typography, Container, Grid, Card, CardContent, Fade, Grow } from "@mui/material";
+import { Box, Button, Typography, Container, Grid, Card, CardContent, Fade, Grow } from "@mui/material";
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
 

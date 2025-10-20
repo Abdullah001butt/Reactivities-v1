@@ -20,4 +20,4 @@ export default function ProfilePage() {
         </Grid2>
     </Grid2>
   )
-}
+} 
